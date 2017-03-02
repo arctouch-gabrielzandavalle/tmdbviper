@@ -1,7 +1,7 @@
 package com.arctouch.gabrielzandavalle.tmdb.service
 
 import com.arctouch.gabrielzandavalle.tmdb.model.Movie
-import com.arctouch.gabrielzandavalle.tmdb.model.MovieListResponse
+import com.arctouch.gabrielzandavalle.tmdb.model.MovieListDisplayModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,7 +16,7 @@ interface TmdbApiInterface {
 
   @GET("list/{id}")
   fun getList(@Path("id") id: String, @Query("api_key") apiKey: String ) :
-      Observable<MovieListResponse>
+      Observable<MovieListDisplayModel>
 
   @GET("movie/{id}")
   fun  getMovie(@Path("id") id: String, @Query("api_key") apiKey: String ): Observable<Movie>

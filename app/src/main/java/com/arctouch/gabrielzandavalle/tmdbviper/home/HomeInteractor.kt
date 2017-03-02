@@ -1,7 +1,7 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.home
 
 import android.util.Log
-import com.arctouch.gabrielzandavalle.tmdb.model.MovieListResponse
+import com.arctouch.gabrielzandavalle.tmdb.model.MovieListDisplayModel
 import com.arctouch.gabrielzandavalle.tmdb.service.TmdbApiInterface
 import rx.Observable
 import rx.Subscriber
@@ -22,11 +22,11 @@ class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeInteractorInput {
   }
 
   override fun loadMovies() {
-    val list: Observable<MovieListResponse> = tmdbApi.getList("1", "1f54bd990f1cdfb230adb312546d765d")
+    val list: Observable<MovieListDisplayModel> = tmdbApi.getList("1", "1f54bd990f1cdfb230adb312546d765d")
 
     list.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe (object: Subscriber<MovieListResponse>(){
+        .subscribe (object: Subscriber<MovieListDisplayModel>(){
           override fun onCompleted() {
             //Completed
           }
@@ -35,7 +35,7 @@ class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeInteractorInput {
             Log.d(TAG, e.message)
           }
 
-          override fun onNext(response: MovieListResponse?) {
+          override fun onNext(response: MovieListDisplayModel?) {
             Log.e("Output",response.toString());
 
             homeInteractorOutput.moviesLoaded(response?.items!!)
