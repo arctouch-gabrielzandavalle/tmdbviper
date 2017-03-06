@@ -7,6 +7,6 @@ import com.arctouch.gabrielzandavalle.tmdb.model.Movie
  */
 interface DetailInteractorOutput {
   fun addedToWatchList(movie: Movie)
-  fun failToAddToWatchList()
+  fun failToAddToWatchList(movie: Movie)
   fun foundSelectedMovie(response: Movie)
 }

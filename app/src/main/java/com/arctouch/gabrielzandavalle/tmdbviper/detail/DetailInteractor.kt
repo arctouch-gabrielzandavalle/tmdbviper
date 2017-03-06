@@ -24,8 +24,6 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
 
           override fun onError(e: Throwable) {
             Log.d(TAG, e.message)
-
-            detailInteractorOutput.failToAddToWatchList()
           }
 
           override fun onNext(response: Movie?) {
@@ -44,7 +42,7 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
     if (tmdbRepository.addToWatchList(movie)) {
       detailInteractorOutput.addedToWatchList(movie)
     }else{
-      detailInteractorOutput.failToAddToWatchList()
+      detailInteractorOutput.failToAddToWatchList(movie)
     }
   }
 

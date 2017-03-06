@@ -2,10 +2,13 @@ package com.arctouch.gabrielzandavalle.tmdbviper.detail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import com.arctouch.gabrielzandavalle.tmdb.model.Movie
 import com.arctouch.gabrielzandavalle.tmdb.service.TmdbApiInterface
 import com.arctouch.gabrielzandavalle.tmdbviper.R
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_detail.addToWatchList
 import kotlinx.android.synthetic.main.activity_detail.detailOverview
 import kotlinx.android.synthetic.main.activity_detail.movieName
 import kotlinx.android.synthetic.main.activity_detail.posterPath
@@ -15,7 +18,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import rx.schedulers.Schedulers
 
-class DetailActivity: AppCompatActivity(), DetailPresenterOutput{
+class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickListener{
 
   lateinit var detailPresenterInput: DetailPresenterInput
 
@@ -37,6 +40,8 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput{
 
     val movieId: String = intent.extras.get("selectedMovie") as String
     detailPresenterInput.viewLoaded(movieId)
+
+    addToWatchList.setOnClickListener(this@DetailActivity)
   }
 
   override fun showMovieDetail(movie: Movie) {
@@ -47,12 +52,17 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput{
         .into(posterPath)
   }
 
-  override fun showMessageMovieAddedToWatchList(movie: Movie) {
-
+  override fun onClick(view: View?) {
+    //detailPresenterInput.addToWatchList()
   }
 
-  override fun showMessageFailToAddToWatchList() {
+  override fun showMessageMovieAddedToWatchList(movie: Movie) {
+    Toast.makeText(this, movie.title + "Added to watch list.",  Toast.LENGTH_LONG)
+  }
 
+  override fun showMessageFailToAddToWatchList(movie: Movie) {
+    Toast.makeText(this, String.format("Failed to add %s to watch list.", movie.title),  Toast
+        .LENGTH_LONG)
   }
 
   private fun createModule(tmdbApi: TmdbApiInterface) {

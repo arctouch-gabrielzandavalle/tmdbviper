@@ -31,7 +31,7 @@ class DetailPresenter(val detailInteractorInput: DetailInteractorInput) : Detail
     detailPresenterOutput.showMessageMovieAddedToWatchList(movie)
   }
 
-  override fun failToAddToWatchList() {
-    detailPresenterOutput.showMessageFailToAddToWatchList()
+  override fun failToAddToWatchList(movie: Movie) {
+    detailPresenterOutput.showMessageFailToAddToWatchList(movie)
   }
 }

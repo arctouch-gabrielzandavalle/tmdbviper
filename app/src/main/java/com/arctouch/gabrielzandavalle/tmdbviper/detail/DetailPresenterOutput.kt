@@ -7,6 +7,6 @@ import com.arctouch.gabrielzandavalle.tmdb.model.Movie
  */
 interface DetailPresenterOutput {
   fun showMessageMovieAddedToWatchList(movie: Movie)
-  fun showMessageFailToAddToWatchList()
   fun showMovieDetail(movie: Movie)
+  fun showMessageFailToAddToWatchList(movie: Movie)
 }
