@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.arctouch.gabrielzandavalle.tmdb.detail.DetailActivity
 import com.arctouch.gabrielzandavalle.tmdb.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
+import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.movieName
 import kotlinx.android.synthetic.main.movie_item.view.overview

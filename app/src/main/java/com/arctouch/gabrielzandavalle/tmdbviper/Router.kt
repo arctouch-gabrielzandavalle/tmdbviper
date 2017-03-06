@@ -5,7 +5,7 @@ package com.arctouch.gabrielzandavalle.tmdbviper
  */
 class Router {
 
-  fun createIntent() {
+  fun createModule() {
 
   }
 }

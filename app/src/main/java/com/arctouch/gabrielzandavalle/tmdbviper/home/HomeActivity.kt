@@ -31,6 +31,16 @@ class HomeActivity: AppCompatActivity(), HomePresenterOutput{
 
     val tmdbApi = retrofit.create(TmdbApiInterface::class.java)
 
+    createModule(tmdbApi)
+  }
+
+  override fun onStart() {
+    super.onStart()
+
+    homePresenterInput.viewLoaded()
+  }
+
+  private fun createModule(tmdbApi: TmdbApiInterface) {
     val homeInteractor = HomeInteractor(tmdbApi)
 
     val homePresenter = HomePresenter(homeInteractor)
@@ -38,8 +48,6 @@ class HomeActivity: AppCompatActivity(), HomePresenterOutput{
 
     this.homePresenterInput = homePresenter
     homePresenterInput.setPresenterOutput(this@HomeActivity)
-
-    homePresenterInput.viewLoaded()
   }
 
   // HomePresenterOutput
