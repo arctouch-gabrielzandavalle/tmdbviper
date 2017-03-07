@@ -64,11 +64,14 @@
 
   <Button
     android:text="Add to Watch List"
+    android:textSize="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/addToWatchList"
     android:layout_marginStart="8dp"
     app:layout_constraintLeft_toRightOf="@+id/movieName"
-    app:layout_constraintTop_toTopOf="@+id/movieName"/>
+    app:layout_constraintTop_toTopOf="@+id/movieName"
+    android:layout_marginEnd="16dp"
+    app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

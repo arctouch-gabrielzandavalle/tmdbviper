@@ -14,6 +14,8 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
 
   val TAG = DetailInteractor::class.java.name
 
+  lateinit var movie: Movie
+
   override fun findSelectedMovie(id: String) {
     tmdbApiInterface.getMovie(id, "1f54bd990f1cdfb230adb312546d765d").subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -30,6 +32,7 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
             Log.e("Output",response.toString());
 
             if (response != null) {
+              this@DetailInteractor.movie = response
               detailInteractorOutput.foundSelectedMovie(response)
             }
           }
@@ -38,8 +41,8 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
 
   lateinit var detailInteractorOutput: DetailInteractorOutput
 
-  override fun addToWatchlist(movie: Movie){
-    if (tmdbRepository.addToWatchList(movie)) {
+  override fun addToWatchlist(){
+    if (tmdbRepository.addToWatchList(this.movie)) {
       detailInteractorOutput.addedToWatchList(movie)
     }else{
       detailInteractorOutput.failToAddToWatchList(movie)

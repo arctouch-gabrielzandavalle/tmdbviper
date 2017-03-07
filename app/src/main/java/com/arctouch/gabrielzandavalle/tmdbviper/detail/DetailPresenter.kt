@@ -13,8 +13,8 @@ class DetailPresenter(val detailInteractorInput: DetailInteractorInput) : Detail
 
   lateinit var detailPresenterOutput: DetailPresenterOutput
 
-  override fun addToWatchList(movie: Movie) {
-    detailInteractorInput.addToWatchlist(movie)
+  override fun addToWatchList() {
+    detailInteractorInput.addToWatchlist()
   }
 
   override fun setPresenterOutput(detailPresenterOutput: DetailPresenterOutput) {

@@ -7,6 +7,6 @@ import com.arctouch.gabrielzandavalle.tmdb.model.Movie
  */
 interface DetailPresenterInput {
   fun viewLoaded(id: String)
-  fun addToWatchList(movie: Movie)
+  fun addToWatchList()
   fun setPresenterOutput(detailPresenterOutput: DetailPresenterOutput)
 }

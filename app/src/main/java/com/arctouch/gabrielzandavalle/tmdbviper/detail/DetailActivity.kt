@@ -53,16 +53,16 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickLi
   }
 
   override fun onClick(view: View?) {
-    //detailPresenterInput.addToWatchList()
+    detailPresenterInput.addToWatchList()
   }
 
   override fun showMessageMovieAddedToWatchList(movie: Movie) {
-    Toast.makeText(this, movie.title + "Added to watch list.",  Toast.LENGTH_LONG)
+    Toast.makeText(this, movie.title + " Added to watch list.",  Toast.LENGTH_LONG).show()
   }
 
   override fun showMessageFailToAddToWatchList(movie: Movie) {
     Toast.makeText(this, String.format("Failed to add %s to watch list.", movie.title),  Toast
-        .LENGTH_LONG)
+        .LENGTH_LONG).show()
   }
 
   private fun createModule(tmdbApi: TmdbApiInterface) {
