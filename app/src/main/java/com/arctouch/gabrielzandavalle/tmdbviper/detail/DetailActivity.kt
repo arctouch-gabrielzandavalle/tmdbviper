@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.arctouch.gabrielzandavalle.tmdb.model.Movie
-import com.arctouch.gabrielzandavalle.tmdb.service.TmdbApiInterface
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
+import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import com.arctouch.gabrielzandavalle.tmdbviper.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.addToWatchList

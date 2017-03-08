@@ -1,4 +1,4 @@
-package com.arctouch.gabrielzandavalle.tmdb.adapter
+package com.arctouch.gabrielzandavalle.tmdbviper.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.arctouch.gabrielzandavalle.tmdb.model.Movie
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
 import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailActivity
 import com.squareup.picasso.Picasso

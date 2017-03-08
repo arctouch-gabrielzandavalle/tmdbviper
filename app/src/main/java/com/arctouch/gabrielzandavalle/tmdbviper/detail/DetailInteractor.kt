@@ -1,8 +1,8 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.detail
 
 import android.util.Log
-import com.arctouch.gabrielzandavalle.tmdb.model.Movie
-import com.arctouch.gabrielzandavalle.tmdb.service.TmdbApiInterface
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
+import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

@@ -1,7 +1,7 @@
-package com.arctouch.gabrielzandavalle.tmdb.service
+package com.arctouch.gabrielzandavalle.tmdbviper.service
 
-import com.arctouch.gabrielzandavalle.tmdb.model.Movie
-import com.arctouch.gabrielzandavalle.tmdb.model.MovieListDisplayModel
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
+import com.arctouch.gabrielzandavalle.tmdbviper.model.MovieListDisplayModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,4 +1,4 @@
-package com.arctouch.gabrielzandavalle.tmdb.model
+package com.arctouch.gabrielzandavalle.tmdbviper.model
 
 import android.os.Parcel
 import android.os.Parcelable

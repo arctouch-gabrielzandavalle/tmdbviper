@@ -1,6 +1,4 @@
-package com.arctouch.gabrielzandavalle.tmdb.model
-
-import org.jetbrains.annotations.Mutable
+package com.arctouch.gabrielzandavalle.tmdbviper.model
 
 /**
  * Created by gabrielzandavalle on 1/18/17.
