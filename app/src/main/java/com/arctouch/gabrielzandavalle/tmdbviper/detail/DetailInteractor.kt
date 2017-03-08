@@ -1,6 +1,7 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.detail
 
 import android.util.Log
+import com.arctouch.gabrielzandavalle.tmdbviper.TmdbRepository
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import rx.Subscriber
@@ -51,14 +52,5 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
 
   override fun setInteractorOutput(detailInteractorOutput: DetailInteractorOutput) {
     this.detailInteractorOutput = detailInteractorOutput
-  }
-}
-
-class TmdbRepository {
-
-  val watchList: MutableList<Movie> = mutableListOf()
-
-  fun addToWatchList(movie: Movie) : Boolean{
-    return this.watchList.add(movie)
   }
 }

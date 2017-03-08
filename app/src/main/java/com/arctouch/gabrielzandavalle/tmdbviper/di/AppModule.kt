@@ -1,5 +1,6 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.di
 
+import com.arctouch.gabrielzandavalle.tmdbviper.TmdbRepository
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,11 @@ class AppModule(private val tmdbApplication: TmdbApplication) {
   @Provides @Singleton
   fun provideRetrofitBaseUrl() : String {
     return "https://api.themoviedb.org/3/"
+  }
+
+  @Provides @Singleton
+  fun provideTmdbRepository() : TmdbRepository {
+    return TmdbRepository()
   }
 
   @Provides @Singleton

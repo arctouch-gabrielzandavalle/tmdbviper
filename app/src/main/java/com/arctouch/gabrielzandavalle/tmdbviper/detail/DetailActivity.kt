@@ -5,43 +5,41 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
-import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import com.arctouch.gabrielzandavalle.tmdbviper.R
+import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
+import com.arctouch.gabrielzandavalle.tmdbviper.home.HomeModule
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.addToWatchList
 import kotlinx.android.synthetic.main.activity_detail.detailOverview
 import kotlinx.android.synthetic.main.activity_detail.movieName
 import kotlinx.android.synthetic.main.activity_detail.posterPath
 import kotlinx.android.synthetic.main.activity_detail.releaseDate
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import rx.schedulers.Schedulers
+import javax.inject.Inject
 
 class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickListener{
 
+  @Inject
   lateinit var detailPresenterInput: DetailPresenterInput
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_detail)
 
-    val rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io())
+    initConfiguration()
 
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.themoviedb.org/3/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(rxAdapter)
-        .build();
-
-    val tmdbApi = retrofit.create(TmdbApiInterface::class.java)
-
-    createModule(tmdbApi)
+    detailPresenterInput.setPresenterOutput(this)
 
     val movieId: String = intent.extras.get("selectedMovie") as String
     detailPresenterInput.viewLoaded(movieId)
 
-    addToWatchList.setOnClickListener(this@DetailActivity)
+    addToWatchList.setOnClickListener(this)
+  }
+
+  private fun initConfiguration() {
+    TmdbApplication.get(this)
+        .applicationComponent
+        .plus(DetailModule())
+        .inject(this)
   }
 
   override fun showMovieDetail(movie: Movie) {
@@ -63,15 +61,5 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickLi
   override fun showMessageFailToAddToWatchList(movie: Movie) {
     Toast.makeText(this, String.format("Failed to add %s to watch list.", movie.title),  Toast
         .LENGTH_LONG).show()
-  }
-
-  private fun createModule(tmdbApi: TmdbApiInterface) {
-    val detailInteractor = DetailInteractor(TmdbRepository(), tmdbApi)
-
-    val detailPresenter = DetailPresenter(detailInteractor)
-    detailInteractor.setInteractorOutput(detailPresenter)
-
-    this.detailPresenterInput = detailPresenter
-    detailPresenterInput.setPresenterOutput(this@DetailActivity)
   }
 }

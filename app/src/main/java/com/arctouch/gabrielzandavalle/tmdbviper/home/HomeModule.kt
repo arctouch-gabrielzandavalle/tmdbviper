@@ -11,7 +11,8 @@ import dagger.Provides
 @Module
 class HomeModule {
 
-  @Provides @ActivityScope fun provideCarBrandsInteractor(tmdbApiInterface: TmdbApiInterface): HomeInteractorInput {
+  @Provides @ActivityScope fun provideHomeInteractor(tmdbApiInterface: TmdbApiInterface):
+      HomeInteractorInput {
     return HomeInteractor(tmdbApiInterface)
   }
 
