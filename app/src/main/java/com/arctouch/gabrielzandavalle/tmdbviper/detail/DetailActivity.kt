@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
-import com.arctouch.gabrielzandavalle.tmdbviper.home.HomeModule
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.addToWatchList
 import kotlinx.android.synthetic.main.activity_detail.detailOverview
@@ -27,6 +26,7 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickLi
 
     initConfiguration()
 
+    //setView
     detailPresenterInput.setPresenterOutput(this)
 
     val movieId: String = intent.extras.get("selectedMovie") as String

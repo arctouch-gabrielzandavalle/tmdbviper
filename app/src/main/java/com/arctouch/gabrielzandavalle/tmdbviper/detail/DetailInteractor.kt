@@ -18,7 +18,8 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
   lateinit var movie: Movie
 
   override fun findSelectedMovie(id: String) {
-    tmdbApiInterface.getMovie(id, "1f54bd990f1cdfb230adb312546d765d").subscribeOn(Schedulers.io())
+    tmdbApiInterface.getMovie(id, "1f54bd990f1cdfb230adb312546d765d")
+        .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe (object: Subscriber<Movie>(){
           override fun onCompleted() {
@@ -29,12 +30,12 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
             Log.d(TAG, e.message)
           }
 
-          override fun onNext(response: Movie?) {
-            Log.e("Output",response.toString());
+          override fun onNext(movie: Movie?) {
+            Log.e("Output",movie?.toString());
 
-            if (response != null) {
-              this@DetailInteractor.movie = response
-              detailInteractorOutput.foundSelectedMovie(response)
+            if (movie != null) {
+              this@DetailInteractor.movie = movie
+              detailInteractorOutput.foundSelectedMovie(movie)
             }
           }
         })
