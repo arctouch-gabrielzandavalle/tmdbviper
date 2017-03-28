@@ -1,11 +1,23 @@
 package com.arctouch.gabrielzandavalle.tmdbviper
 
-/**
- * Created by gabrielzandavalle on 3/2/17.
- */
+import android.app.Activity
+import android.content.Intent
+import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailActivity
+
 class Router {
 
-  fun createModule() {
+  companion object Factory {
 
+    private var mActivity: Activity? = null
+
+    fun setActivity(activity: Activity) {
+      mActivity = activity
+    }
+
+    fun createDetailModule (id: String) {
+      val intent = Intent(mActivity, DetailActivity::class.java)
+      intent.putExtra("selectedMovie", id)
+      mActivity?.startActivity(intent)
+    }
   }
 }

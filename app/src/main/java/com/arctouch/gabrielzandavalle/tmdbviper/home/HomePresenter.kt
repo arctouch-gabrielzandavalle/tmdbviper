@@ -22,7 +22,5 @@ class HomePresenter(val homeInteractorInput: HomeInteractorInput) : HomePresente
 
   // HomeInteractorOutput
 
-  override fun moviesLoaded(items: List<Movie>) {
-    homePresenterOutput.showMovies(items)
-  }
+  override fun moviesLoaded(items: List<Movie>) = homePresenterOutput.showMovies(items)
 }

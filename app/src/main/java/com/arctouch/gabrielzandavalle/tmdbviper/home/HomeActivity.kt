@@ -7,6 +7,7 @@ import com.arctouch.gabrielzandavalle.tmdbviper.adapter.MovieAdapter
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import com.arctouch.gabrielzandavalle.tmdbviper.R
+import com.arctouch.gabrielzandavalle.tmdbviper.Router
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
 import kotlinx.android.synthetic.main.activity_home.moviesRecyclerView
 import javax.inject.Inject
@@ -23,11 +24,9 @@ class HomeActivity: AppCompatActivity(), HomePresenterOutput{
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_home)
 
-    initConfiguration()
-  }
+    Router.setActivity(this)
 
-  override fun onStart() {
-    super.onStart()
+    initConfiguration()
 
     homePresenterInput.setPresenterOutput(this)
     homePresenterInput.viewLoaded()

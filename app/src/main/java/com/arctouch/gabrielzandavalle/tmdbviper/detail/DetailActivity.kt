@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
+import com.arctouch.gabrielzandavalle.tmdbviper.Router
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.addToWatchList
@@ -23,6 +24,8 @@ class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickLi
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_detail)
+
+    Router.setActivity(this)
 
     initConfiguration()
 

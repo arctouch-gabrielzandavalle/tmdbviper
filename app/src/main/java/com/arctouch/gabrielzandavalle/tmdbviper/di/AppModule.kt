@@ -20,7 +20,7 @@ class AppModule(private val tmdbApplication: TmdbApplication) {
 
   @Provides @Singleton
   fun provideApplication() : TmdbApplication{
-    return tmdbApplication;
+    return tmdbApplication
   }
 
   @Provides @Singleton
@@ -42,7 +42,7 @@ class AppModule(private val tmdbApplication: TmdbApplication) {
         .baseUrl(retrofitBaseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(rxAdapter)
-        .build();
+        .build()
 
     return retrofit.create(TmdbApiInterface::class.java)
   }

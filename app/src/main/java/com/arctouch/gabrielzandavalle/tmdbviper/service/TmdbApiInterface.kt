@@ -2,7 +2,6 @@ package com.arctouch.gabrielzandavalle.tmdbviper.service
 
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.model.MovieListDisplayModel
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
+import com.arctouch.gabrielzandavalle.tmdbviper.Router
 import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.movieName
@@ -49,9 +50,7 @@ open class MovieAdapter(var movies: List<Movie>) : RecyclerView.Adapter<MovieAda
       Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + item.posterPath).into(posterPath)
 
       view.setOnClickListener {
-        val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra("selectedMovie", item.id)
-        context.startActivity(intent)
+        Router.createDetailModule(item.id)
       }
     }
   }
