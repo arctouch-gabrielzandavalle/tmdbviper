@@ -5,19 +5,19 @@ import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 /**
  * Created by gabrielzandavalle on 3/2/17.
  */
-class DetailPresenter(val detailInteractorInput: DetailInteractorInput) : DetailPresenterInput, DetailInteractorOutput{
+class DetailPresenter(val detailInteractorInput: DetailContracts.DetailInteractorInput) : DetailContracts.DetailPresenterInput, DetailContracts.DetailInteractorOutput {
 
   override fun viewLoaded(id: String) {
     detailInteractorInput.findSelectedMovie(id)
   }
 
-  lateinit var detailPresenterOutput: DetailPresenterOutput
+  lateinit var detailPresenterOutput: DetailContracts.DetailPresenterOutput
 
   override fun addToWatchList() {
     detailInteractorInput.addToWatchlist()
   }
 
-  override fun setPresenterOutput(detailPresenterOutput: DetailPresenterOutput) {
+  override fun setPresenterOutput(detailPresenterOutput: DetailContracts.DetailPresenterOutput) {
     this.detailPresenterOutput = detailPresenterOutput
   }
 

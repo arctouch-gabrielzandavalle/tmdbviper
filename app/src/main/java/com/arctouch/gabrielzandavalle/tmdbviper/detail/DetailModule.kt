@@ -12,13 +12,14 @@ import dagger.Provides
 @Module
 class DetailModule {
 
-  @Provides @ActivityScope fun provideDetailInteractor(tmdbRepository: TmdbRepository, tmdbApiInterface:
-  TmdbApiInterface) : DetailInteractorInput {
+  @Provides @ActivityScope
+  fun provideDetailInteractor(tmdbRepository: TmdbRepository, tmdbApiInterface:
+  TmdbApiInterface) : DetailContracts.DetailInteractorInput {
     return DetailInteractor(tmdbRepository, tmdbApiInterface)
   }
 
   @Provides @ActivityScope
-  fun provideDetailPresenterInput(detailInteractorInput : DetailInteractorInput) : DetailPresenterInput {
+  fun provideDetailPresenterInput(detailInteractorInput : DetailContracts.DetailInteractorInput) : DetailContracts.DetailPresenterInput {
     val detailPresenter = DetailPresenter(detailInteractorInput)
     detailInteractorInput.setInteractorOutput(detailPresenter)
     return detailPresenter

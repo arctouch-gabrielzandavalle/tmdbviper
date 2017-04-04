@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.activity_detail.posterPath
 import kotlinx.android.synthetic.main.activity_detail.releaseDate
 import javax.inject.Inject
 
-class DetailActivity: AppCompatActivity(), DetailPresenterOutput, View.OnClickListener{
+class DetailActivity: AppCompatActivity(), DetailContracts.DetailPresenterOutput, View.OnClickListener{
 
   @Inject
-  lateinit var detailPresenterInput: DetailPresenterInput
+  lateinit var detailPresenterInput: DetailContracts.DetailPresenterInput
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

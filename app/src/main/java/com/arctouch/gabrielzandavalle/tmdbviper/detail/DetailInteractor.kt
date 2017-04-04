@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers
 /**
  * Created by gabrielzandavalle on 3/6/17.
  */
-class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface: TmdbApiInterface) : DetailInteractorInput{
+class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface: TmdbApiInterface) : DetailContracts.DetailInteractorInput {
 
   val TAG = DetailInteractor::class.java.name
 
@@ -41,7 +41,7 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
         })
   }
 
-  lateinit var detailInteractorOutput: DetailInteractorOutput
+  lateinit var detailInteractorOutput: DetailContracts.DetailInteractorOutput
 
   override fun addToWatchlist(){
     if (tmdbRepository.addToWatchList(this.movie)) {
@@ -51,7 +51,7 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
     }
   }
 
-  override fun setInteractorOutput(detailInteractorOutput: DetailInteractorOutput) {
+  override fun setInteractorOutput(detailInteractorOutput: DetailContracts.DetailInteractorOutput) {
     this.detailInteractorOutput = detailInteractorOutput
   }
 }
