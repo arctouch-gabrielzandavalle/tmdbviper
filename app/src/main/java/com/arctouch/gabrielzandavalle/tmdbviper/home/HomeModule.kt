@@ -12,12 +12,12 @@ import dagger.Provides
 class HomeModule {
 
   @Provides @ActivityScope
-  fun provideHomeInteractor(tmdbApiInterface: TmdbApiInterface) : HomeInteractorInput {
+  fun provideHomeInteractor(tmdbApiInterface: TmdbApiInterface) : HomeContracts.HomeInteractorInput {
     return HomeInteractor(tmdbApiInterface)
   }
 
   @Provides @ActivityScope
-  fun provideHomePresenterInput(homeInteractorInput: HomeInteractorInput) : HomePresenterInput {
+  fun provideHomePresenterInput(homeInteractorInput: HomeContracts.HomeInteractorInput) : HomeContracts.HomePresenterInput {
     val homePresenter: HomePresenter =  HomePresenter(homeInteractorInput)
     homeInteractorInput.setInteractorOutput(homePresenter)
     return homePresenter

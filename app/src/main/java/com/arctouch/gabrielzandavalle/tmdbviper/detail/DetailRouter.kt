@@ -1,10 +1,10 @@
-package com.arctouch.gabrielzandavalle.tmdbviper
+package com.arctouch.gabrielzandavalle.tmdbviper.detail
 
 import android.app.Activity
 import android.content.Intent
 import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailActivity
 
-class Router {
+class DetailRouter {
 
   companion object Factory {
 

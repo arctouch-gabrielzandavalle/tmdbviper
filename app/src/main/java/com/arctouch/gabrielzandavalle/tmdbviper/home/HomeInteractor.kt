@@ -11,13 +11,13 @@ import rx.schedulers.Schedulers
 /**
  * Created by gabrielzandavalle on 3/2/17.
  */
-class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeInteractorInput {
+class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeContracts.HomeInteractorInput {
 
   val TAG = HomeInteractor::class.java.name
 
-  lateinit var homeInteractorOutput: HomeInteractorOutput
+  lateinit var homeInteractorOutput: HomeContracts.HomeInteractorOutput
 
-  override fun setInteractorOutput(homeInteractorOutput: HomeInteractorOutput) {
+  override fun setInteractorOutput(homeInteractorOutput: HomeContracts.HomeInteractorOutput) {
     this.homeInteractorOutput = homeInteractorOutput
   }
 
