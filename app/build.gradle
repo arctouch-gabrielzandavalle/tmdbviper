@@ -23,6 +23,9 @@ android {
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
 }
 
 dependencies {
@@ -47,6 +50,7 @@ dependencies {
   compile 'com.google.dagger:dagger:2.4'
   compile 'com.android.support:appcompat-v7:25.1.1'
   testCompile 'junit:junit:4.12'
+  testCompile 'org.mockito:mockito-core:2.1.0'
   kapt 'com.google.dagger:dagger-compiler:2.4'
   provided 'org.glassfish:javax.annotation:10.0-b28'
 

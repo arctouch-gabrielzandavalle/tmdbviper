@@ -4,6 +4,7 @@ import android.util.Log
 import com.arctouch.gabrielzandavalle.tmdbviper.model.MovieListDisplayModel
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import rx.Observable
+import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -11,7 +12,10 @@ import rx.schedulers.Schedulers
 /**
  * Created by gabrielzandavalle on 3/2/17.
  */
-class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeContracts.HomeInteractorInput {
+class HomeInteractor(val tmdbApi: TmdbApiInterface,val  scheduler: Scheduler = Schedulers.io(),
+    val observeOn: Scheduler = AndroidSchedulers.mainThread()) :
+    HomeContracts
+.HomeInteractorInput {
 
   val TAG = HomeInteractor::class.java.name
 
@@ -24,8 +28,8 @@ class HomeInteractor(val tmdbApi: TmdbApiInterface) : HomeContracts.HomeInteract
   override fun loadMovies() {
     val list: Observable<MovieListDisplayModel> = tmdbApi.getList("1", "1f54bd990f1cdfb230adb312546d765d")
 
-    list.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+    list.subscribeOn(scheduler)
+        .observeOn(observeOn)
         .subscribe (object: Subscriber<MovieListDisplayModel>(){
           override fun onCompleted() {
             //Completed
