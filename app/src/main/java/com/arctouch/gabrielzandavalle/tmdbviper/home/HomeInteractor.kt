@@ -14,8 +14,7 @@ import rx.schedulers.Schedulers
  */
 class HomeInteractor(val tmdbApi: TmdbApiInterface,val  scheduler: Scheduler = Schedulers.io(),
     val observeOn: Scheduler = AndroidSchedulers.mainThread()) :
-    HomeContracts
-.HomeInteractorInput {
+    HomeContracts.HomeInteractorInput {
 
   val TAG = HomeInteractor::class.java.name
 

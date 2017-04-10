@@ -20,7 +20,7 @@ import rx.schedulers.Schedulers
  */
 class TestHomePresenter {
 
-  lateinit var  movies: List<Movie>
+  lateinit var movies: List<Movie>
 
   lateinit var movieListDisplayModel: MovieListDisplayModel
 
@@ -36,12 +36,13 @@ class TestHomePresenter {
 
   @Before
   fun setUp() {
+    movies = listOf()
     MockitoAnnotations.initMocks(this)
     homeInteractor = HomeInteractor(tmdbApi, Schedulers.immediate(), Schedulers.immediate())
     homePresenter = HomePresenter(homeInteractor)
     homeInteractor.setInteractorOutput(homePresenter)
     homePresenter.setPresenterOutput(homePresenterOutput)
-    movies = listOf()
+
     movieListDisplayModel = MovieListDisplayModel("1", movies)
     given(tmdbApi.getList(anyString(), anyString()))
         .willReturn(Observable.just(movieListDisplayModel))

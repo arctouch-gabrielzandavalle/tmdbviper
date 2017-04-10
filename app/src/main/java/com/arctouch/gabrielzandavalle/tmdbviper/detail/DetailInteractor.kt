@@ -4,14 +4,18 @@ import android.util.Log
 import com.arctouch.gabrielzandavalle.tmdbviper.TmdbRepository
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
+import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
+import rx.internal.operators.OperatorObserveOn
 import rx.schedulers.Schedulers
 
 /**
  * Created by gabrielzandavalle on 3/6/17.
  */
-class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface: TmdbApiInterface) : DetailContracts.DetailInteractorInput {
+class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
+TmdbApiInterface, val subscribeOn: Scheduler = Schedulers.io(), val observeOn: Scheduler =
+AndroidSchedulers.mainThread()) : DetailContracts.DetailInteractorInput {
 
   val TAG = DetailInteractor::class.java.name
 
@@ -19,8 +23,8 @@ class DetailInteractor(val tmdbRepository: TmdbRepository, val tmdbApiInterface:
 
   override fun findSelectedMovie(id: String) {
     tmdbApiInterface.getMovie(id, "1f54bd990f1cdfb230adb312546d765d")
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(subscribeOn)
+        .observeOn(observeOn)
         .subscribe (object: Subscriber<Movie>(){
           override fun onCompleted() {
             //Completed
