@@ -7,7 +7,6 @@ import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import rx.Scheduler
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
-import rx.internal.operators.OperatorObserveOn
 import rx.schedulers.Schedulers
 
 /**

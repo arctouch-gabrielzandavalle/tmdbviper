@@ -7,7 +7,6 @@ import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito.*
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -32,11 +31,14 @@ class TestDetailPresenter {
   @Mock
   lateinit var tmdbApi: TmdbApiInterface
 
+  lateinit var tmdbRepository: TmdbRepository
+
   @Before
   fun setUp() {
     MockitoAnnotations.initMocks(this)
+    tmdbRepository = TmdbRepository()
     selectedMovie = Movie("1", "", "", "")
-    detailInteractor = DetailInteractor(TmdbRepository(), tmdbApi,  Schedulers.immediate(), Schedulers
+    detailInteractor = DetailInteractor(tmdbRepository, tmdbApi,  Schedulers.immediate(), Schedulers
         .immediate())
     detailPresenter = DetailPresenter(detailInteractor)
     detailInteractor.setInteractorOutput(detailPresenter)
@@ -49,5 +51,12 @@ class TestDetailPresenter {
   fun testViewLoaded() {
     detailPresenter.viewLoaded("1")
     Mockito.verify(detailPresenterOutput).showMovieDetail(selectedMovie)
+  }
+
+  @Test
+  fun testAddMovieToWatchList() {
+    detailPresenter.viewLoaded("1")
+    detailPresenter.addToWatchList()
+    Mockito.verify(detailPresenterOutput).showMessageMovieAddedToWatchList(selectedMovie)
   }
 }
