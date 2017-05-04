@@ -20,30 +20,29 @@ import rx.schedulers.Schedulers
  */
 class TestHomePresenter {
 
-  lateinit var movies: List<Movie>
+  val movies = listOf<Movie>()
 
   lateinit var movieListDisplayModel: MovieListDisplayModel
 
   lateinit var homePresenter: HomePresenter
 
+  lateinit var homeInteractor: HomeInteractor
+
   @Mock
   lateinit var homePresenterOutput: HomeContracts.HomePresenterOutput
-
-  lateinit var homeInteractor: HomeInteractor
 
   @Mock
   lateinit var tmdbApi: TmdbApiInterface
 
   @Before
   fun setUp() {
-    movies = listOf()
     MockitoAnnotations.initMocks(this)
     homeInteractor = HomeInteractor(tmdbApi, Schedulers.immediate(), Schedulers.immediate())
     homePresenter = HomePresenter(homeInteractor)
     homeInteractor.setInteractorOutput(homePresenter)
     homePresenter.setPresenterOutput(homePresenterOutput)
 
-    movieListDisplayModel = MovieListDisplayModel("1", movies)
+    movieListDisplayModel = MovieListDisplayModel(id = "1", items = movies)
     given(tmdbApi.getList(anyString(), anyString()))
         .willReturn(Observable.just(movieListDisplayModel))
   }
