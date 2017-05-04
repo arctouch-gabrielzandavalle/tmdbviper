@@ -20,36 +20,33 @@ import rx.schedulers.Schedulers
  */
 class TestHomePresenter {
 
-  val movies = listOf<Movie>()
-
-  lateinit var movieListDisplayModel: MovieListDisplayModel
+  val movies = listOf<Movie>(Movie(title = "Titanic"), Movie(title = "Gladiator"))
 
   lateinit var homePresenter: HomePresenter
 
-  lateinit var homeInteractor: HomeInteractor
-
   @Mock
   lateinit var homePresenterOutput: HomeContracts.HomePresenterOutput
-
   @Mock
-  lateinit var tmdbApi: TmdbApiInterface
+  lateinit var homeInteractorInput: HomeContracts.HomeInteractorInput
 
   @Before
   fun setUp() {
     MockitoAnnotations.initMocks(this)
-    homeInteractor = HomeInteractor(tmdbApi, Schedulers.immediate(), Schedulers.immediate())
-    homePresenter = HomePresenter(homeInteractor)
-    homeInteractor.setInteractorOutput(homePresenter)
+    homePresenter = HomePresenter(homeInteractorInput)
     homePresenter.setPresenterOutput(homePresenterOutput)
 
-    movieListDisplayModel = MovieListDisplayModel(id = "1", items = movies)
-    given(tmdbApi.getList(anyString(), anyString()))
-        .willReturn(Observable.just(movieListDisplayModel))
+    given(homeInteractorInput.loadMovies()).will { homePresenter.moviesLoaded(movies) }
   }
 
   @Test
-  fun testViewLoaded() {
+  fun shouldLoadMoviesWhenViewIsLoaded() {
     homePresenter.viewLoaded()
-    Mockito.verify(homePresenterOutput).showMovies(movies)
+    verify(homeInteractorInput).loadMovies()
+  }
+
+  @Test
+  fun shouldShowMoviesWhenMoviesAreLoaded() {
+    homePresenter.moviesLoaded(movies)
+    verify(homePresenterOutput).showMovies(movies)
   }
 }
