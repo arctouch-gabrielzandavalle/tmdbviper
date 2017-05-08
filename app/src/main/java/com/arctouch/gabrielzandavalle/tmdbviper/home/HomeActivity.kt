@@ -42,7 +42,7 @@ class HomeActivity: AppCompatActivity(), HomeContracts.HomePresenterOutput {
   // HomePresenterOutput
 
   override fun showMovies(items: List<Movie>) {
-    moviesRecyclerView.adapter = MovieAdapter(items)
+    moviesRecyclerView.adapter = MovieAdapter(items, this)
     moviesRecyclerView.layoutManager = LinearLayoutManager(this)
   }
 }

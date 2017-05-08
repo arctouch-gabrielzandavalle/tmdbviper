@@ -18,6 +18,7 @@ class HomeContracts {
 
   interface HomePresenterInput {
     fun viewLoaded()
+    fun itemClicked(id: String)
     fun setPresenterOutput(homePresenterOutput: HomePresenterOutput)
   }
 

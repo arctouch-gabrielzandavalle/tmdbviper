@@ -41,6 +41,8 @@ dependencies {
   }
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  testCompile "junit:junit:4.12"
+
   // Dagger
   compile 'com.android.support:appcompat-v7:25.1.0'
   compile 'com.android.support:recyclerview-v7:25.1.0'

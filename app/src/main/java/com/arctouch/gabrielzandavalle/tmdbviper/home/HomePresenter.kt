@@ -1,5 +1,6 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.home
 
+import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailRouter
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 
 /**
@@ -14,6 +15,10 @@ class HomePresenter(val homeInteractorInput: HomeContracts.HomeInteractorInput) 
 
   override fun viewLoaded() {
     homeInteractorInput.loadMovies()
+  }
+
+  override fun itemClicked(id: String) {
+    DetailRouter.createDetailModule(id)
   }
 
   override fun setPresenterOutput(homePresenterOutput: HomeContracts.HomePresenterOutput) {
