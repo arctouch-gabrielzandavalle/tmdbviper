@@ -32,8 +32,7 @@ class TestHomePresenter {
   @Before
   fun setUp() {
     MockitoAnnotations.initMocks(this)
-    homePresenter = HomePresenter(homeInteractorInput)
-    homePresenter.setPresenterOutput(homePresenterOutput)
+    homePresenter = HomePresenter(homePresenterOutput, homeInteractorInput)
 
     given(homeInteractorInput.loadMovies()).will { homePresenter.moviesLoaded(movies) }
   }

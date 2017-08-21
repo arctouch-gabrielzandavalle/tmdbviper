@@ -1,68 +1,67 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.detail
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
-import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
-import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailRouter
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detail.addToWatchList
-import kotlinx.android.synthetic.main.activity_detail.detailOverview
-import kotlinx.android.synthetic.main.activity_detail.movieName
-import kotlinx.android.synthetic.main.activity_detail.posterPath
-import kotlinx.android.synthetic.main.activity_detail.releaseDate
+import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
-class DetailActivity: AppCompatActivity(), DetailContracts.DetailPresenterOutput, View.OnClickListener{
+class DetailActivity : AppCompatActivity(), DetailContracts.DetailPresenterOutput, View.OnClickListener {
 
-  @Inject
-  lateinit var detailPresenterInput: DetailContracts.DetailPresenterInput
+    companion object {
+        const val EXTRA_SELECTED_MOVIE_ID = "com.arctouch.gabrielzandavalle.tmdbviper.detail.SelectedMovieId"
+    }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_detail)
+    @Inject
+    lateinit var detailPresenterInput: DetailContracts.DetailPresenterInput
 
-    DetailRouter.setActivity(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
 
-    initConfiguration()
+        DetailRouter.setActivity(this)
 
-    //setView
-    detailPresenterInput.setPresenterOutput(this)
+        initConfiguration()
 
-    val movieId: String = intent.extras.get("selectedMovie") as String
-    detailPresenterInput.viewLoaded(movieId)
+        //setView
+        detailPresenterInput.setPresenterOutput(this)
 
-    addToWatchList.setOnClickListener(this)
-  }
+        val movieId: String = intent.extras.get(EXTRA_SELECTED_MOVIE_ID) as String
+        detailPresenterInput.viewLoaded(movieId)
 
-  private fun initConfiguration() {
-    TmdbApplication.get(this)
-        .applicationComponent
-        .plus(DetailModule())
-        .inject(this)
-  }
+        addToWatchList.setOnClickListener(this)
+    }
 
-  override fun showMovieDetail(movie: Movie) {
-    movieName.text = movie.title
-    detailOverview.text = movie.overview
-    releaseDate.text = movie.releaseDate
-    Picasso.with(this).load("https://image.tmdb.org/t/p/w500" + movie.posterPath)
-        .into(posterPath)
-  }
+    private fun initConfiguration() {
+        TmdbApplication.get(this)
+                .applicationComponent
+                .plus(DetailModule())
+                .inject(this)
+    }
 
-  override fun onClick(view: View?) {
-    detailPresenterInput.addToWatchList()
-  }
+    override fun showMovieDetail(movie: Movie) {
+        movieName.text = movie.title
+        detailOverview.text = movie.overview
+        releaseDate.text = movie.releaseDate
+        Picasso.with(this).load("https://image.tmdb.org/t/p/w500" + movie.posterPath)
+                .into(posterPath)
+    }
 
-  override fun showMessageMovieAddedToWatchList(movie: Movie) {
-    Toast.makeText(this, movie.title + " Added to watch list.",  Toast.LENGTH_LONG).show()
-  }
+    override fun onClick(view: View?) {
+        detailPresenterInput.addToWatchList()
+    }
 
-  override fun showMessageFailToAddToWatchList(movie: Movie) {
-    Toast.makeText(this, String.format("Failed to add %s to watch list.", movie.title),  Toast
-        .LENGTH_LONG).show()
-  }
+    override fun showMessageMovieAddedToWatchList(movie: Movie) {
+        Toast.makeText(this, movie.title + " Added to watch list.", Toast.LENGTH_LONG).show()
+    }
+
+    override fun showMessageFailToAddToWatchList(movie: Movie) {
+        Toast.makeText(this, String.format("Failed to add %s to watch list.", movie.title), Toast
+                .LENGTH_LONG).show()
+    }
 }

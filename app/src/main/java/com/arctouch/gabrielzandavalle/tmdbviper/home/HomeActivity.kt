@@ -5,44 +5,37 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.arctouch.gabrielzandavalle.tmdbviper.adapter.MovieAdapter
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
-import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import com.arctouch.gabrielzandavalle.tmdbviper.R
 import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailRouter
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
 import kotlinx.android.synthetic.main.activity_home.moviesRecyclerView
 import javax.inject.Inject
 
-class HomeActivity: AppCompatActivity(), HomeContracts.HomePresenterOutput {
+class HomeActivity : AppCompatActivity(), HomeContracts.HomePresenterOutput {
 
-  @Inject
-  lateinit var homePresenterInput: HomeContracts.HomePresenterInput
+    @Inject
+    lateinit var homePresenterInput: HomeContracts.HomePresenterInput
 
-  @Inject
-  lateinit var tmdbApi: TmdbApiInterface
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_home)
+        DetailRouter.setActivity(this) // TODO
 
-    DetailRouter.setActivity(this)
+        injectDependencies()
 
-    initConfiguration()
+        homePresenterInput.viewLoaded()
+    }
 
-    homePresenterInput.setPresenterOutput(this)
-    homePresenterInput.viewLoaded()
-  }
+    private fun injectDependencies() {
+        TmdbApplication.get(this)
+                .applicationComponent
+                .plus(HomeModule(this))
+                .inject(this)
+    }
 
-  private fun initConfiguration() {
-    TmdbApplication.get(this)
-        .applicationComponent
-        .plus(HomeModule())
-        .inject(this)
-  }
-
-  // HomePresenterOutput
-
-  override fun showMovies(items: List<Movie>) {
-    moviesRecyclerView.adapter = MovieAdapter(items, this)
-    moviesRecyclerView.layoutManager = LinearLayoutManager(this)
-  }
+    override fun showMovies(items: List<Movie>) {
+        moviesRecyclerView.adapter = MovieAdapter(items)
+        moviesRecyclerView.layoutManager = LinearLayoutManager(this)
+    }
 }
