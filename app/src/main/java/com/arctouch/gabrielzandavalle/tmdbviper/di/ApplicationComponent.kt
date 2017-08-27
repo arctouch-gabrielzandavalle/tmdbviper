@@ -8,14 +8,11 @@ import com.arctouch.gabrielzandavalle.tmdbviper.home.HomeModule
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Created by gabrielzandavalle on 1/19/17.
- */
 @Singleton
 @Component(modules = arrayOf(AppModule::class))
 interface ApplicationComponent {
-  fun inject(viewHolder: MovieAdapter.ViewHolder)
+    fun inject(viewHolder: MovieAdapter.ViewHolder)
 
-  fun plus(module: HomeModule): HomeComponent
-  fun plus(module: DetailModule): DetailComponent
+    fun plus(module: HomeModule): HomeComponent
+    fun plus(module: DetailModule): DetailComponent
 }

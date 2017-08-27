@@ -1,6 +1,5 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.home
 
-import android.app.Activity
 import com.arctouch.gabrielzandavalle.tmdbviper.di.ActivityScope
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import dagger.Module
@@ -18,7 +17,7 @@ class HomeModule(private val homeInteractorOutput: HomeContracts.HomePresenterOu
 
     @Provides @ActivityScope
     fun provideHomePresenterInput(homeInteractorInput: HomeContracts.HomeInteractorInput): HomeContracts.HomePresenterInput {
-        val homePresenter: HomePresenter = HomePresenter(homeInteractorOutput, homeInteractorInput)
+        val homePresenter = HomePresenter(homeInteractorOutput, homeInteractorInput)
         homeInteractorInput.setInteractorOutput(homePresenter)
         return homePresenter
     }

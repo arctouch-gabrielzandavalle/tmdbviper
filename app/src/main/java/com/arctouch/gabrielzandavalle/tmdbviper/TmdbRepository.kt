@@ -4,9 +4,7 @@ import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 
 class TmdbRepository {
 
-  val watchList: MutableList<Movie> = mutableListOf()
+    private val watchList = mutableListOf<Movie>()
 
-  fun addToWatchList(movie: Movie) : Boolean{
-    return this.watchList.add(movie)
-  }
+    fun addToWatchList(movie: Movie) = watchList.add(movie)
 }

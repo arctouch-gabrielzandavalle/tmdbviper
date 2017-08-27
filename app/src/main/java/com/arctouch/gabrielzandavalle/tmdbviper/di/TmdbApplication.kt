@@ -5,14 +5,12 @@ import android.content.Context
 
 class TmdbApplication : Application() {
 
-    var applicationComponent: ApplicationComponent = DaggerApplicationComponent
-            .builder()
-            .appModule(AppModule(this))
-            .build()
-
     companion object Factory {
-        fun get(context: Context): TmdbApplication {
-            return context.applicationContext as TmdbApplication
+        fun getComponent(context: Context): ApplicationComponent {
+            return DaggerApplicationComponent
+                    .builder()
+                    .appModule(AppModule(context.applicationContext as TmdbApplication))
+                    .build()
         }
     }
 }

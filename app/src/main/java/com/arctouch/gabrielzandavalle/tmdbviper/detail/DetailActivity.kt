@@ -24,8 +24,6 @@ class DetailActivity : AppCompatActivity(), DetailContracts.DetailPresenterOutpu
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        DetailRouter.setActivity(this)
-
         initConfiguration()
 
         //setView
@@ -38,8 +36,7 @@ class DetailActivity : AppCompatActivity(), DetailContracts.DetailPresenterOutpu
     }
 
     private fun initConfiguration() {
-        TmdbApplication.get(this)
-                .applicationComponent
+        TmdbApplication.getComponent(this)
                 .plus(DetailModule())
                 .inject(this)
     }

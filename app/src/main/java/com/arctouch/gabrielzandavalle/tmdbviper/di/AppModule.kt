@@ -15,29 +15,25 @@ import javax.inject.Singleton
 @Module
 class AppModule(private val tmdbApplication: TmdbApplication) {
 
-    @Provides @Singleton
-    fun provideApplication(): TmdbApplication {
-        return tmdbApplication
-    }
+    @Provides
+    @Singleton
+    fun provideApplication() = tmdbApplication
 
-    @Provides @Singleton
-    fun provideApplicationContext(): Context {
-        return tmdbApplication.applicationContext
-    }
+    @Provides
+    @Singleton
+    fun provideApplicationContext(): Context = tmdbApplication.applicationContext
 
-    @Provides @Singleton
-    fun provideRetrofitBaseUrl(): String {
-        return "https://api.themoviedb.org/3/"
-    }
+    @Provides
+    @Singleton
+    fun provideRetrofitBaseUrl() = "https://api.themoviedb.org/3/"
 
-    @Provides @Singleton
-    fun provideTmdbRepository(): TmdbRepository {
-        return TmdbRepository()
-    }
+    @Provides
+    @Singleton
+    fun provideTmdbRepository() = TmdbRepository()
 
-    @Provides @Singleton
+    @Provides
+    @Singleton
     fun provideTmdbApi(retrofitBaseUrl: String): TmdbApiInterface {
-
         val rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io())
 
         val retrofit = Retrofit.Builder()
@@ -49,8 +45,7 @@ class AppModule(private val tmdbApplication: TmdbApplication) {
         return retrofit.create(TmdbApiInterface::class.java)
     }
 
-    @Provides @Singleton
-    fun provideHomerouter(context: Context): HomeRouter {
-        return HomeRouter(context)
-    }
+    @Provides
+    @Singleton
+    fun provideHomeRouter(context: Context) = HomeRouter(context)
 }

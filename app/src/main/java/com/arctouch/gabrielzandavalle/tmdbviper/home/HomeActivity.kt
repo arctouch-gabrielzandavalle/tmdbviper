@@ -1,14 +1,13 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.home
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.arctouch.gabrielzandavalle.tmdbviper.adapter.MovieAdapter
-import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
 import com.arctouch.gabrielzandavalle.tmdbviper.R
-import com.arctouch.gabrielzandavalle.tmdbviper.detail.DetailRouter
+import com.arctouch.gabrielzandavalle.tmdbviper.adapter.MovieAdapter
 import com.arctouch.gabrielzandavalle.tmdbviper.di.TmdbApplication
-import kotlinx.android.synthetic.main.activity_home.moviesRecyclerView
+import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
+import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HomeContracts.HomePresenterOutput {
@@ -20,16 +19,13 @@ class HomeActivity : AppCompatActivity(), HomeContracts.HomePresenterOutput {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        DetailRouter.setActivity(this) // TODO
-
         injectDependencies()
 
         homePresenterInput.viewLoaded()
     }
 
     private fun injectDependencies() {
-        TmdbApplication.get(this)
-                .applicationComponent
+        TmdbApplication.getComponent(this)
                 .plus(HomeModule(this))
                 .inject(this)
     }

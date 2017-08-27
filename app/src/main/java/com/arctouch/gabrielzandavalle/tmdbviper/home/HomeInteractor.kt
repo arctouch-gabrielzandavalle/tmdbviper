@@ -1,19 +1,19 @@
 package com.arctouch.gabrielzandavalle.tmdbviper.home
 
 import android.util.Log
-import com.arctouch.gabrielzandavalle.tmdbviper.model.MovieListDisplayModel
 import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
-import rx.Observable
 import rx.Scheduler
-import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
-class HomeInteractor(val tmdbApi: TmdbApiInterface, val scheduler: Scheduler = Schedulers.io(),
-                     val observeOn: Scheduler = AndroidSchedulers.mainThread()) :
+class HomeInteractor(private val tmdbApi: TmdbApiInterface,
+                     private val subscribeOn: Scheduler = Schedulers.io(),
+                     private val observeOn: Scheduler = AndroidSchedulers.mainThread()) :
         HomeContracts.HomeInteractorInput {
 
-    val TAG = HomeInteractor::class.java.name
+    private companion object {
+        val TAG: String = HomeInteractor::class.java.name
+    }
 
     lateinit var homeInteractorOutput: HomeContracts.HomeInteractorOutput
 
@@ -22,24 +22,14 @@ class HomeInteractor(val tmdbApi: TmdbApiInterface, val scheduler: Scheduler = S
     }
 
     override fun loadMovies() {
-        val list: Observable<MovieListDisplayModel> = tmdbApi.getList("1", "1f54bd990f1cdfb230adb312546d765d")
+        val list = tmdbApi.getList("1", "1f54bd990f1cdfb230adb312546d765d")
 
-        list.subscribeOn(scheduler)
+        list.subscribeOn(subscribeOn)
                 .observeOn(observeOn)
-                .subscribe(object : Subscriber<MovieListDisplayModel>() {
-                    override fun onCompleted() {
-                        //Completed
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d(TAG, e.message)
-                    }
-
-                    override fun onNext(response: MovieListDisplayModel?) {
-                        Log.e("Output", response.toString());
-
-                        homeInteractorOutput.moviesLoaded(response?.items!!)
-                    }
+                .subscribe({
+                    homeInteractorOutput.moviesLoaded(it.items)
+                }, {
+                    Log.e(TAG, it.message, it)
                 })
     }
 }

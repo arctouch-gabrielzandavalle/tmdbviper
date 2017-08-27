@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_item.view.*
 import javax.inject.Inject
 
-open class MovieAdapter(var movies: List<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private var movies: List<Movie>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -23,9 +23,7 @@ open class MovieAdapter(var movies: List<Movie>) : RecyclerView.Adapter<MovieAda
         return ViewHolder(context, view)
     }
 
-    override fun getItemCount(): Int {
-        return movies.size
-    }
+    override fun getItemCount() = movies.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movies[position])
@@ -37,9 +35,7 @@ open class MovieAdapter(var movies: List<Movie>) : RecyclerView.Adapter<MovieAda
         lateinit var homeRouter: HomeRouter
 
         init {
-            TmdbApplication.get(context)
-                    .applicationComponent
-                    .inject(this)
+            TmdbApplication.getComponent(context).inject(this)
         }
 
         fun bind(item: Movie) {
