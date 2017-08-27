@@ -1,51 +1,43 @@
 package com.arctouch.gabrielzandavalle.tmdbviper
 
 import com.arctouch.gabrielzandavalle.tmdbviper.home.HomeContracts
-import com.arctouch.gabrielzandavalle.tmdbviper.home.HomeInteractor
 import com.arctouch.gabrielzandavalle.tmdbviper.home.HomePresenter
 import com.arctouch.gabrielzandavalle.tmdbviper.model.Movie
-import com.arctouch.gabrielzandavalle.tmdbviper.model.MovieListDisplayModel
-import com.arctouch.gabrielzandavalle.tmdbviper.service.TmdbApiInterface
 import org.junit.Before
 import org.junit.Test
-import org.mockito.BDDMockito.*
+import org.mockito.BDDMockito.given
+import org.mockito.BDDMockito.verify
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import rx.Observable
-import rx.schedulers.Schedulers
 
-/**
- * Created by gabrielzandavalle on 4/5/17.
- */
 class TestHomePresenter {
 
-  val movies = listOf<Movie>(Movie(title = "Titanic"), Movie(title = "Gladiator"))
+    private val movies = listOf(Movie(title = "Titanic"), Movie(title = "Gladiator"))
 
-  lateinit var homePresenter: HomePresenter
+    private lateinit var homePresenter: HomePresenter
 
-  @Mock
-  lateinit var homePresenterOutput: HomeContracts.HomePresenterOutput
-  @Mock
-  lateinit var homeInteractorInput: HomeContracts.HomeInteractorInput
+    @Mock
+    lateinit var homePresenterOutput: HomeContracts.HomePresenterOutput
+    @Mock
+    lateinit var homeInteractorInput: HomeContracts.HomeInteractorInput
 
-  @Before
-  fun setUp() {
-    MockitoAnnotations.initMocks(this)
-    homePresenter = HomePresenter(homePresenterOutput, homeInteractorInput)
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        homePresenter = HomePresenter(homePresenterOutput, homeInteractorInput)
 
-    given(homeInteractorInput.loadMovies()).will { homePresenter.moviesLoaded(movies) }
-  }
+        given(homeInteractorInput.loadMovies()).will { homePresenter.moviesLoaded(movies) }
+    }
 
-  @Test
-  fun shouldLoadMoviesWhenViewIsLoaded() {
-    homePresenter.viewLoaded()
-    verify(homeInteractorInput).loadMovies()
-  }
+    @Test
+    fun shouldLoadMoviesWhenViewIsLoaded() {
+        homePresenter.viewLoaded()
+        verify(homeInteractorInput).loadMovies()
+    }
 
-  @Test
-  fun shouldShowMoviesWhenMoviesAreLoaded() {
-    homePresenter.moviesLoaded(movies)
-    verify(homePresenterOutput).showMovies(movies)
-  }
+    @Test
+    fun shouldShowMoviesWhenMoviesAreLoaded() {
+        homePresenter.moviesLoaded(movies)
+        verify(homePresenterOutput).showMovies(movies)
+    }
 }
